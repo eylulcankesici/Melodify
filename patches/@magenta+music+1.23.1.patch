@@ -1,0 +1,26 @@
+diff --git a/node_modules/@magenta/music/esm/ddsp/add_reverb.js b/node_modules/@magenta/music/esm/ddsp/add_reverb.js
+index 7a82174..849c7de 100644
+--- a/node_modules/@magenta/music/esm/ddsp/add_reverb.js
++++ b/node_modules/@magenta/music/esm/ddsp/add_reverb.js
+@@ -1,7 +1,7 @@
+-import * as Tone from 'tone';
++// import * as Tone from 'tone';
+ import { arrayBufferToAudioBuffer } from './buffer_utils';
+ export async function addReverb({ audioCtx, arrayBuffer, sampleRate, }) {
+-    Tone.setContext(audioCtx);
++    // Tone.setContext(audioCtx);
+     let bufferWithReverb;
+     let resampledAudioBuffer = arrayBufferToAudioBuffer(audioCtx, arrayBuffer, sampleRate);
+     const renderingPromise = Tone.Offline(() => {
+diff --git a/node_modules/@magenta/music/esm/ddsp/model.js b/node_modules/@magenta/music/esm/ddsp/model.js
+index 18712bd..4e7e88b 100644
+--- a/node_modules/@magenta/music/esm/ddsp/model.js
++++ b/node_modules/@magenta/music/esm/ddsp/model.js
+@@ -1,6 +1,6 @@
+ import '@tensorflow/tfjs-backend-webgl';
+ import * as tf from '@tensorflow/tfjs';
+-import * as Tone from 'tone';
++// import * as Tone from 'tone';
+ import { resampleAndMakeMono } from '../core/audio_utils';
+ import { upsample_f0 } from '../spice/pitch_utils';
+ import { MODEL_SAMPLE_RATE } from '../spice/spice';

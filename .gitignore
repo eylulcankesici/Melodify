@@ -1,0 +1,24 @@
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+.env.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*venv*/
+*onsets-env*/
+
+# AI Model Checkpoints (Large files)
+backend/OnsetsAndFrames/checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store

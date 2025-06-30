@@ -1,0 +1,41 @@
+{
+  "name": "melodify",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@magenta/music": "^1.23.1",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/supabase-js": "^2.49.8",
+    "@tonejs/midi": "^2.0.28",
+    "file-loader": "^6.2.0",
+    "hex-alpha": "^1.3.0",
+    "hex-rgba": "^1.0.2",
+    "hex2dec": "^1.1.2",
+    "midi-json-parser": "^8.1.64",
+    "midi-parser-js": "^4.0.4",
+    "next": "15.3.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rgb-hex": "^4.1.0",
+    "soundfont-player": "^0.12.0",
+    "url-loader": "^4.1.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20.17.57",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.3",
+    "sass": "^1.89.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
