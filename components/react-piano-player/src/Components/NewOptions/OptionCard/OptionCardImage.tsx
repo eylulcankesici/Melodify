@@ -1,4 +1,4 @@
-import React, { ReactElement,useRef, useState } from 'react'
+import React, { ReactElement,useRef, useState, ReactNode } from 'react'
 
 import {checkExtension} from '../../../Utils/smallFunctions';
 
@@ -7,7 +7,7 @@ interface CardProps{
     name: string;
     type: string;
     title?:string;
-    children:JSX.Element | string;
+    children:ReactNode;
     value: string|boolean,
     textColor:string
 }
