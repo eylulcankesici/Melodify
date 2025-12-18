@@ -473,11 +473,13 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full flex justify-center py-16" ref={pianoRef}>
-            <div className="relative w-full h-[58rem] overflow-hidden border-y-2 border-[#dcd5c4] bg-[#002b36]">
-              <PianoPlayer midiUrl={midiUrl} />
+          {!showTranscriptions && (
+            <div className="w-full flex justify-center py-16" ref={pianoRef}>
+              <div className="relative w-full h-[58rem] overflow-hidden border-y-2 border-[#dcd5c4] bg-[#002b36]">
+                <PianoPlayer midiUrl={midiUrl} />
+              </div>
             </div>
-          </div>
+          )}
         </main>
       </div>
     );
