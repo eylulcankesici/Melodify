@@ -25,15 +25,15 @@ export default function SharedTranscriptionPage({ params }: { params: { shareId:
           throw new Error(err.error || 'Transkripsiyon bulunamadı');
         }
 
-        const data = await response.json();
+        const data: { audioUrl: string; midiUrl: string; createdAt: string } = await response.json();
 
         // Mikroservis formatını component formatına dönüştür
         setTranscription({
           audio_url: data.audioUrl,
           midi_url: data.midiUrl,
-          created_at: data.createdAt
+          created_at: data.createdAt,
         });
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Paylaşılan transkripsiyon yükleme hatası:', error);
         setError('Bu transkripsiyon artık mevcut değil veya paylaşım süresi dolmuş.');
       } finally {

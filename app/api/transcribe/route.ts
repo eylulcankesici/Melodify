@@ -37,10 +37,14 @@ export async function POST(req: NextRequest) {
       },
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('API Route Hatası:', error);
+
+    const message =
+      error instanceof Error ? error.message : 'Transkripsiyon sırasında bir hata oluştu';
+
     return NextResponse.json(
-      { error: error.message || 'Transkripsiyon sırasında bir hata oluştu' },
+      { error: message },
       { status: 500 }
     );
   }

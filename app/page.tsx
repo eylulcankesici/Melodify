@@ -50,8 +50,11 @@ export default function Home() {
     });
   }, []);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>, purpose: 'transcription' | 'midiplayer') => {
-    const file = e.target.files?.[0];
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    purpose: 'transcription' | 'midiplayer'
+  ) => {
+    const file = event.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
@@ -78,7 +81,8 @@ export default function Home() {
       const newFileInput = fileInputRef.current.cloneNode(true) as HTMLInputElement;
       fileInputRef.current.parentNode?.replaceChild(newFileInput, fileInputRef.current);
       
-      newFileInput.onchange = (e) => handleFileChange(e as any, purpose);
+      newFileInput.onchange = (event: Event) =>
+        handleFileChange(event as unknown as React.ChangeEvent<HTMLInputElement>, purpose);
       newFileInput.click();
     }
   };
@@ -143,13 +147,14 @@ export default function Home() {
         throw new Error(err.error || 'Transkripsiyon kaydedilirken bir hata oluştu.');
       }
 
-      const savedData = await saveResponse.json();
+      const savedData: { midiUrl: string } = await saveResponse.json();
       
       // 3. Kalıcı MIDI URL'ini kullan
       setTranscriptionResultUrl(savedData.midiUrl);
 
-    } catch (error: any) {
-      alert('Hata: ' + error.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Bilinmeyen bir hata oluştu';
+      alert('Hata: ' + message);
     } finally {
       setIsTranscribing(false);
     }
@@ -230,13 +235,13 @@ export default function Home() {
           
           <div className="z-10 w-full max-w-md flex flex-col items-center">
             {/* --- YENİ EKLENEN LOGO VE SLOGAN --- */}
-            <a href="/" className="cursor-pointer mb-8">
+            <Link href="/" className="cursor-pointer mb-8">
               <div className={`${lobster.className} text-6xl text-[#586e75] drop-shadow-sm select-none flex items-end`}>
                 <span>Melodi</span>
                 <span className="text-7xl text-[#b58900] leading-none mx-[-0.05em]">𝄞</span>
                 <span className="mb-1">y</span>
               </div>
-            </a>
+            </Link>
             <p className="text-xl text-[#657b83] mb-8 -mt-6">
               Müziğin dünyasına hoş geldin.
             </p>
@@ -308,13 +313,13 @@ export default function Home() {
         <span className="text-6xl text-[#cb4b16] font-black opacity-25 absolute top-[45%] left-[2%] select-none animate-float-delay-5">♫</span>
         <header className="w-full bg-[#fdf6e3]/80 backdrop-blur-sm border-b border-[#93a1a1]/30 sticky top-0 z-50">
           <div className="w-full max-w-7xl mx-auto px-4 flex justify-between items-center py-5">
-            <a href="/" className="cursor-pointer">
+            <Link href="/" className="cursor-pointer">
               <div className={`${lobster.className} text-5xl text-[#586e75] drop-shadow-sm select-none flex items-end`}>
                 <span>Melodi</span>
                 <span className="text-6xl text-[#b58900] leading-none mx-[-0.05em]">𝄞</span>
                 <span className="mb-1">y</span>
               </div>
-            </a>
+            </Link>
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setShowTranscriptions(prev => !prev)}
