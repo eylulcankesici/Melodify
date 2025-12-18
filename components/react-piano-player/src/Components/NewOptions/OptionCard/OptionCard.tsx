@@ -1,4 +1,4 @@
-import React, { ReactElement,useState,useEffect } from 'react'
+import React, { ReactElement,useState,useEffect, ReactNode } from 'react'
 import './OptionCard.style.scss';
 import './Input.styles.scss';
 
@@ -8,7 +8,7 @@ interface OptionCardProps{
     onChange: Function;
     Important?:boolean;
     title?:string;
-    children:JSX.Element | string;
+    children:ReactNode;
     value: string|boolean,
     textColor?: 'effects' | 'blocks' | 'speed' | 'background'
 }
