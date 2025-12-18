@@ -41,7 +41,7 @@ export default function OptionCard({onChange,name,type,textColor,title,children,
           return new Promise(resolve =>{resolve('Error')})
         }
       }
-      if(checkExtension(Myvalue.current?.files[0],'.jpg') || checkExtension(Myvalue.current?.files[0],'.png') || checkExtension(Myvalue.current?.files[0],'.gif')){
+      if(Myvalue.current?.files && Myvalue.current.files[0] && (checkExtension(Myvalue.current.files[0],'.jpg') || checkExtension(Myvalue.current.files[0],'.png') || checkExtension(Myvalue.current.files[0],'.gif'))){
       convertDataToArray64().then(reading =>{
         const data = {
             target:{name:'Image', value:reading}
