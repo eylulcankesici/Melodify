@@ -452,11 +452,11 @@ export default class ConvertToPDF{
         bass.onload = function(){
             load_image();
         }
-        bass.src = Bass_png;
+        bass.src = Bass_png.src;
         violin.onload = function(){
             load_image();
         }
-        violin.src = Violin_png;
+        violin.src = Violin_png.src;
     }
 
     private resetBarsData():void{
