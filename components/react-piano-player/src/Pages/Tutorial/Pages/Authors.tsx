@@ -20,7 +20,7 @@ export default function Authors() {
                     </p>
                 </div>
                 <div className='Pg-Flex-70'>
-                    <img src={Me} alt="Me" className='Pg-Flex-70-img' />
+                    <img src={Me.src} alt="Me" className='Pg-Flex-70-img' />
                 </div>
             </div>
             <h3 className='Pg-Sm-Header Pg-Text'>Others</h3>
