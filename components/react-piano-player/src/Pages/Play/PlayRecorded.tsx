@@ -1,4 +1,4 @@
-import React,{useEffect,useState, useMemo} from 'react';
+import React,{useEffect,useState, useMemo, useCallback} from 'react';
 
 import DrawPiano from '../../Components/DrawPiano/DrawPiano';
 import PlayingManagement from '../../Components/PlayingManagement/PlayingManagement';
@@ -13,6 +13,7 @@ export default function PlayRecorded() {
     const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [Player,setPlayer] = useState<MidiPlayer>();
     const [Events,setEvents] = useState<Array<noteEvent>>();
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const sound = useMemo(() => {
         if (typeof window !== 'undefined') {
@@ -28,14 +29,37 @@ export default function PlayRecorded() {
         setPlayer(new MidiPlayer(file,handleMidiEvent,25));
     }, []);
 
-    const handleMidiEvent = (Events:Array<noteEvent>) =>{
+    const handleMidiEvent = useCallback((Events:Array<noteEvent>) =>{
         Events.length > 0 && setEvents(Events);
-    }
+    }, []);
+
+    const handleTogglePlay = useCallback(() => {
+        if (Player) {
+            Player.PausePlay();
+            setIsPlaying(currentIsPlaying => !currentIsPlaying);
+        }
+    }, [Player]);
+
+    const handleStop = useCallback(() => {
+        if (Player) {
+            Player.Restart();
+            setIsPlaying(false);
+        }
+    }, [Player]);
+    
+    const handleMove = useCallback((percent: number) => {
+        if (Player) {
+            Player.MoveTo(percent);
+            if (!Player.isPaused) {
+                setIsPlaying(true);
+            }
+        }
+    }, [Player]);
 
     return (
         <div style={{overflow:'hidden'}}>
             {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options} sound={sound}/>}
-            {Player && <PlayingManagement Player={Player} onStart={()=>{}} />}
+            {Player && <PlayingManagement Player={Player} onTogglePlay={handleTogglePlay} onStop={handleStop} onMove={handleMove} isPlaying={isPlaying} />}
         </div>
     )
 }
