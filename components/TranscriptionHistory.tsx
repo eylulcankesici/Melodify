@@ -124,6 +124,14 @@ export default function TranscriptionHistory() {
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-6 bg-[#fdf6e3] rounded-2xl shadow-md border border-[#e0d7c3] relative overflow-hidden">
+      {/* Arka plan müzik sembolleri */}
+      <div className="absolute inset-0 pointer-events-none">
+        <span className="absolute text-6xl text-[#e0c879] top-4 left-6 opacity-60">♪</span>
+        <span className="absolute text-5xl text-[#e0c879] bottom-6 right-10 opacity-60">♫</span>
+        <span className="absolute text-7xl text-[#f0d9a3] top-1/2 left-1/3 -translate-y-1/2 opacity-70">♬</span>
+        <span className="absolute text-4xl text-[#e0c879] top-10 right-1/4 opacity-55">♭</span>
+      </div>
+
       <div className="relative z-10">
         <div className="px-6 py-4 border-b border-[#e0d7c3]">
           <h2 className="text-2xl font-bold text-[#586e75]">
