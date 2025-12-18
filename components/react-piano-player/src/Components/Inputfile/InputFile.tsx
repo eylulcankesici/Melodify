@@ -21,7 +21,9 @@ export default function InputFile({FileRef,onFileUpload,options,onConfClick,isCo
     const [fade,setFade] = useState<boolean>(false);
 
     useEffect(()=>{
-        !blocks && setBlocks(new DrawInCanvas(Canvas,options));
+        if (!blocks && Canvas.current) {
+            setBlocks(new DrawInCanvas(Canvas as React.RefObject<HTMLCanvasElement>,options));
+        }
     },[blocks,Canvas,options])
 
     const render = () =>{
