@@ -74,8 +74,10 @@ class DancingLines{
     }
 
     private Rect_Floor_Alpha_ReturnNewAlpha(pos_x:number,pos_y:number, color:string, alpha:number){
-        this.ctx.shadowColor = color + decToHex((alpha*1000).toString())?.slice(2);
-        this.ctx.fillStyle = hexAlpha(color,parseFloat(decToHex((alpha*1000).toString())!));
+        const alphaValue = Math.floor(alpha * 1000);
+        const hexValue = decToHex(alphaValue);
+        this.ctx.shadowColor = color + hexValue.slice(2);
+        this.ctx.fillStyle = hexAlpha(color, parseFloat(hexValue));
         this.ctx.fillRect(Math.floor(pos_x),Math.floor(pos_y),Math.floor(this.effect_width),Math.floor(this.effect_height));
         return alpha - 1/this.life_time;
     }
