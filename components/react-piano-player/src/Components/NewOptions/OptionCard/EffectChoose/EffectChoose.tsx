@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, ReactNode} from 'react';
 import './EffectChoose.style.scss';
 
 interface OptionCardProps{
@@ -8,7 +8,7 @@ interface OptionCardProps{
     Important?:boolean;
     title?:string;
     current:string;
-    children: JSX.Element | string;
+    children: ReactNode;
     value: string|boolean,
     src:any
     textColor?: 'effects' | 'blocks' | 'speed' | 'background'
