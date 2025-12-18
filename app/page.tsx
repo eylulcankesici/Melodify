@@ -108,13 +108,13 @@ export default function Home() {
     setTranscriptionResultUrl(null);
 
     try {
-      // 1. Flask servisine istek at - MIDI üret
-      const transcribeResponse = await fetch('http://localhost:5000/transcribe', {
+      // 1. Flask servisine istek at - MIDI üret (Next.js API route üzerinden)
+      const transcribeResponse = await fetch('/api/transcribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ audio_url: transcriptionFileUrl }),
+        body: JSON.stringify({ audioUrl: transcriptionFileUrl }),
       });
 
       if (!transcribeResponse.ok) {
@@ -137,7 +137,7 @@ export default function Home() {
         formData.append('accessToken', accessToken);
       }
 
-      const saveResponse = await fetch('http://localhost:3001/api/transcriptions', {
+      const saveResponse = await fetch('/api/transcriptions', {
         method: 'POST',
         body: formData,
       });

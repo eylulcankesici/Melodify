@@ -39,7 +39,7 @@ export default function TranscriptionHistory() {
           headers['Authorization'] = `Bearer ${accessToken}`;
         }
         
-        const response = await fetch(`http://localhost:3001/api/transcriptions?userId=${userId}`, {
+        const response = await fetch(`/api/transcriptions?userId=${userId}`, {
           headers
         });
         
@@ -92,7 +92,7 @@ export default function TranscriptionHistory() {
         headers['Authorization'] = `Bearer ${accessToken}`;
       }
 
-      const response = await fetch(`http://localhost:3001/api/transcriptions/${id}/share`, {
+      const response = await fetch(`/api/transcriptions/${id}/share`, {
         method: 'POST',
         headers,
       });
