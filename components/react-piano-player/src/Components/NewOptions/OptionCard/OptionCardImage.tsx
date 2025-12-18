@@ -14,7 +14,7 @@ interface CardProps{
 
 export default function OptionCard({onChange,name,type,textColor,title,children,value}:CardProps):ReactElement {
 
-    const Myvalue = useRef<any>();
+    const Myvalue = useRef<HTMLInputElement | null>(null);
     const [image,setImage] = useState<any>();
 
     const handleChange = () =>{
