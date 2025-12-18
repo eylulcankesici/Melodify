@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import SimplePianoRoll from '@/components/SimplePianoRoll';
 
 interface SharedTranscription {
   audio_url: string;
@@ -18,17 +17,24 @@ export default function SharedTranscriptionPage({ params }: { params: { shareId:
   useEffect(() => {
     async function fetchSharedTranscription() {
       try {
-        const { data, error } = await supabase
-          .from('transcriptions')
-          .select('audio_url, midi_url, created_at')
-          .eq('share_id', params.shareId)
-          .single();
+        // Mikroservisten paylaşılan transkripsiyonu çek
+        const response = await fetch(`http://localhost:3001/api/share/${params.shareId}`);
+        
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || 'Transkripsiyon bulunamadı');
+        }
 
-        if (error) throw error;
-        if (!data) throw new Error('Transkripsiyon bulunamadı');
+        const data = await response.json();
 
-        setTranscription(data);
-      } catch {
+        // Mikroservis formatını component formatına dönüştür
+        setTranscription({
+          audio_url: data.audioUrl,
+          midi_url: data.midiUrl,
+          created_at: data.createdAt
+        });
+      } catch (error: any) {
+        console.error('Paylaşılan transkripsiyon yükleme hatası:', error);
         setError('Bu transkripsiyon artık mevcut değil veya paylaşım süresi dolmuş.');
       } finally {
         setLoading(false);
@@ -68,7 +74,6 @@ export default function SharedTranscriptionPage({ params }: { params: { shareId:
               MIDI dosyasını indir / görüntüle
             </a>
           </div>
-          <SimplePianoRoll midiUrl={transcription.midi_url} />
         </div>
       </div>
     </div>

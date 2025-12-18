@@ -22,3 +22,7 @@ backend/OnsetsAndFrames/checkpoints/
 .vscode/
 .idea/
 .DS_Store
+
+# Model runtime dosyaları (geçici upload'lar vs.)
+backend/OnsetsAndFrames/temp_uploads/
+backend/OnsetsAndFrames/audio/

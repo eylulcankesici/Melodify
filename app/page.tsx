@@ -1,10 +1,12 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
+import Link from 'next/link';
 import AuthForm from '@/components/AuthForm';
 import { supabase } from '@/lib/supabase';
 import { User } from '@supabase/supabase-js';
 import dynamic from 'next/dynamic';
 import { Lobster } from 'next/font/google';
+import TranscriptionHistory from '@/components/TranscriptionHistory';
 
 import '@/components/react-piano-player/src/App.css';
 import '@/components/react-piano-player/src/index.css';
@@ -36,6 +38,7 @@ export default function Home() {
   const [transcriptionFileUrl, setTranscriptionFileUrl] = useState<string | null>(null);
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [transcriptionResultUrl, setTranscriptionResultUrl] = useState<string | null>(null);
+  const [showTranscriptions, setShowTranscriptions] = useState(false);
 
   useEffect(() => {
     const fetchUser = supabase.auth.getUser();
@@ -95,13 +98,14 @@ export default function Home() {
   };
 
   const handleStartTranscription = async () => {
-    if (!transcriptionFileUrl || isTranscribing) return;
+    if (!transcriptionFileUrl || isTranscribing || !user) return;
 
     setIsTranscribing(true);
     setTranscriptionResultUrl(null);
 
     try {
-      const response = await fetch('http://localhost:5000/transcribe', {
+      // 1. Flask servisine istek at - MIDI üret
+      const transcribeResponse = await fetch('http://localhost:5000/transcribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,14 +113,40 @@ export default function Home() {
         body: JSON.stringify({ audio_url: transcriptionFileUrl }),
       });
 
-      if (!response.ok) {
-        const err = await response.json();
+      if (!transcribeResponse.ok) {
+        const err = await transcribeResponse.json();
         throw new Error(err.error || 'Transkripsiyon sırasında bir hata oluştu.');
       }
 
-      const midiBlob = await response.blob();
-      const resultUrl = URL.createObjectURL(midiBlob);
-      setTranscriptionResultUrl(resultUrl);
+      const midiBlob = await transcribeResponse.blob();
+      
+      // 2. MIDI blob'unu yeni mikroservise gönder - Storage'a yükle ve veritabanına kaydet
+      // Kullanıcı access token'ını al
+      const { data: { session } } = await supabase.auth.getSession();
+      const accessToken = session?.access_token;
+
+      const formData = new FormData();
+      formData.append('midiBlob', midiBlob, 'transcribed.midi');
+      formData.append('userId', user.id);
+      formData.append('audioUrl', transcriptionFileUrl);
+      if (accessToken) {
+        formData.append('accessToken', accessToken);
+      }
+
+      const saveResponse = await fetch('http://localhost:3001/api/transcriptions', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!saveResponse.ok) {
+        const err = await saveResponse.json();
+        throw new Error(err.error || 'Transkripsiyon kaydedilirken bir hata oluştu.');
+      }
+
+      const savedData = await saveResponse.json();
+      
+      // 3. Kalıcı MIDI URL'ini kullan
+      setTranscriptionResultUrl(savedData.midiUrl);
 
     } catch (error: any) {
       alert('Hata: ' + error.message);
@@ -285,12 +315,20 @@ export default function Home() {
                 <span className="mb-1">y</span>
               </div>
             </a>
-            <button
-              onClick={async () => { await supabase.auth.signOut(); window.location.reload(); }}
-              className="bg-[#fdf6e3] text-[#586e75] px-6 py-2 rounded-full border border-[#93a1a1]/50 hover:bg-[#dcd5c4] transition shadow-sm"
-            >
-              Çıkış Yap
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setShowTranscriptions(prev => !prev)}
+                className="bg-[#fdf6e3] text-[#586e75] px-6 py-2 rounded-full border border-[#93a1a1]/50 hover:bg-[#dcd5c4] transition shadow-sm font-semibold"
+              >
+                {showTranscriptions ? 'Ana Ekran' : 'Transkripsiyonlarım'}
+              </button>
+              <button
+                onClick={async () => { await supabase.auth.signOut(); window.location.reload(); }}
+                className="bg-[#fdf6e3] text-[#586e75] px-6 py-2 rounded-full border border-[#93a1a1]/50 hover:bg-[#dcd5c4] transition shadow-sm"
+              >
+                Çıkış Yap
+              </button>
+            </div>
           </div>
         </header>
 
@@ -302,18 +340,26 @@ export default function Home() {
               </div>
               <div className="flex flex-col md:flex-row items-center justify-center gap-16 w-full">
                   <div className="flex-1 flex flex-col gap-6 items-start">
-                    <h1 className="text-5xl md:text-6xl font-extrabold text-[#586e75] leading-tight tracking-tight drop-shadow-sm animate-fade-in-up">
-                      <span className="block">Piyano Dosyanı Yükle</span>
-                      <span className="block text-4xl md:text-5xl text-[#839496] mt-4">
-                        Dilersen <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b58900] to-[#cb4b16]">Oynat</span>
-                      </span>
-                      <span className="block text-4xl md:text-5xl text-[#839496]">
-                        Dilersen <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#268bd2] to-[#2aa198]">Dönüştür</span>
-                      </span>
-                    </h1>
-                    <p className="text-lg md:text-xl text-[#657b83] max-w-xl animate-fade-in-up delay-100">
-                      Dilediğin piyano dosyasını yükle, piyanoda çal veya notalara dönüştür.
-                    </p>
+                    {showTranscriptions ? (
+                      <div className="w-full">
+                        <TranscriptionHistory />
+                      </div>
+                    ) : (
+                      <>
+                        <h1 className="text-5xl md:text-6xl font-extrabold text-[#586e75] leading-tight tracking-tight drop-shadow-sm animate-fade-in-up">
+                          <span className="block">Piyano Dosyanı Yükle</span>
+                          <span className="block text-4xl md:text-5xl text-[#839496] mt-4">
+                            Dilersen <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b58900] to-[#cb4b16]">Oynat</span>
+                          </span>
+                          <span className="block text-4xl md:text-5xl text-[#839496]">
+                            Dilersen <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#268bd2] to-[#2aa198]">Dönüştür</span>
+                          </span>
+                        </h1>
+                        <p className="text-lg md:text-xl text-[#657b83] max-w-xl animate-fade-in-up delay-100">
+                          Dilediğin piyano dosyasını yükle, piyanoda çal veya notalara dönüştür.
+                        </p>
+                      </>
+                    )}
                   </div>
 
                   <div className="flex-1 flex flex-col items-center gap-8 animate-fade-in-up delay-300">
