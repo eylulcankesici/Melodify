@@ -126,7 +126,7 @@ export default class ConvertToPDF{
             return new Promise(resolve =>{
                 const img = new Image();
                 img.onload = () => {resolve(img)}
-                img.src = type === 'bass' ? Bass_png : Violin_png;
+                img.src = type === 'bass' ? Bass_png.src : Violin_png.src;
             })
         }
         const bass =  await AddImage('bass');
