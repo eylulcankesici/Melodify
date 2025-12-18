@@ -9,17 +9,43 @@ interface SharedTranscription {
 }
 
 type SharedTranscriptionPageProps = {
-  params: unknown;
+  params?: Promise<{ shareId: string }>;
 };
 
 export default function SharedTranscriptionPage({ params }: SharedTranscriptionPageProps) {
-  const { shareId } = params as { shareId: string };
-
   const [transcription, setTranscription] = useState<SharedTranscription | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [shareId, setShareId] = useState<string | null>(null);
+
+  // Next.js'in PageProps tipine uymak için params'ı Promise olarak ele alıyoruz
+  useEffect(() => {
+    let isMounted = true;
+
+    async function resolveParams() {
+      if (!params) return;
+
+      try {
+        const resolved = await params;
+        if (isMounted) {
+          setShareId(resolved.shareId);
+        }
+      } catch (e) {
+        console.error('Share params çözülürken hata:', e);
+      }
+    }
+
+    resolveParams();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [params]);
 
   useEffect(() => {
+    // shareId hazır olmadan istek atma
+    if (!shareId) return;
+
     async function fetchSharedTranscription() {
       try {
         // Mikroservisten paylaşılan transkripsiyonu çek
