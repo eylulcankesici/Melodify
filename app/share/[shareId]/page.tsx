@@ -8,7 +8,8 @@ interface SharedTranscription {
   created_at: string;
 }
 
-export default function SharedTranscriptionPage({ params }: { params: { shareId: string } }) {
+// Next.js 15 PageProps tipiyle uğraşmamak için params'ı esnek bırakıyoruz
+export default function SharedTranscriptionPage({ params }: any) {
   const [transcription, setTranscription] = useState<SharedTranscription | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
