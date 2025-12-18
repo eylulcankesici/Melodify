@@ -8,8 +8,13 @@ interface SharedTranscription {
   created_at: string;
 }
 
-// Next.js 15 PageProps tipiyle uğraşmamak için params'ı esnek bırakıyoruz
-export default function SharedTranscriptionPage({ params }: any) {
+type SharedTranscriptionPageProps = {
+  params: unknown;
+};
+
+export default function SharedTranscriptionPage({ params }: SharedTranscriptionPageProps) {
+  const { shareId } = params as { shareId: string };
+
   const [transcription, setTranscription] = useState<SharedTranscription | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +23,7 @@ export default function SharedTranscriptionPage({ params }: any) {
     async function fetchSharedTranscription() {
       try {
         // Mikroservisten paylaşılan transkripsiyonu çek
-        const response = await fetch(`http://localhost:3001/api/share/${params.shareId}`);
+        const response = await fetch(`http://localhost:3001/api/share/${shareId}`);
         
         if (!response.ok) {
           const err = await response.json();
@@ -42,7 +47,7 @@ export default function SharedTranscriptionPage({ params }: any) {
     }
 
     fetchSharedTranscription();
-  }, [params.shareId]);
+  }, [shareId]);
 
   if (loading) {
     return (
