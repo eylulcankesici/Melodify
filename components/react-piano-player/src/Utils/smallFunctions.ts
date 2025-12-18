@@ -62,7 +62,7 @@ const ReadFromLocalStorageBase64 = (storageName:string):ArrayBuffer =>{
             for(let x = 0; x < binary_string.length; x++){
                 bytes[x] = binary_string.charCodeAt(x);
             }
-            return bytes.buffer;
+            return bytes.buffer as ArrayBuffer;
         }
         return new ArrayBuffer(1);
     }
