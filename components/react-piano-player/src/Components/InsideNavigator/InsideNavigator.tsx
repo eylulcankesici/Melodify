@@ -1,10 +1,10 @@
-import React, { ReactElement,useRef} from 'react';
+import React, { ReactElement,useRef, ReactNode} from 'react';
 import './InsideNavigator.style.scss';
 
 interface InsideNavigatorProps{
     elements:Array<{
         name:string,
-        component:ReactElement | HTMLElement | string
+        component:ReactNode
     }>
     setId:Function
     component_id:number
