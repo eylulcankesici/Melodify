@@ -7,7 +7,7 @@ interface CardProps{
     name: string;
     type: string;
     title?:string;
-    children:JSX.Element | string;
+    children:React.ReactNode;
     value: string|boolean,
     textColor:string
 }

@@ -8,7 +8,7 @@ interface OptionCardProps{
     Important?:boolean;
     title?:string;
     current:string;
-    children: JSX.Element | string;
+    children: React.ReactNode;
     value: string|boolean,
     src:any
     textColor?: 'effects' | 'blocks' | 'speed' | 'background'

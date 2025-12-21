@@ -8,7 +8,7 @@ interface OptionCardProps{
     onChange: Function;
     Important?:boolean;
     title?:string;
-    children:JSX.Element | string;
+    children:React.ReactNode;
     value: string|boolean,
     textColor?: 'effects' | 'blocks' | 'speed' | 'background'
 }
