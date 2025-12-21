@@ -11,6 +11,15 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    ignores: [
+      "components/react-piano-player/**/*",
+      ".next/**/*",
+      "node_modules/**/*",
+      "out/**/*",
+      "build/**/*"
+    ]
+  }
 ];
 
 export default eslintConfig;

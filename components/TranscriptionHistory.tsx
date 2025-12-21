@@ -39,7 +39,7 @@ export default function TranscriptionHistory() {
           headers['Authorization'] = `Bearer ${accessToken}`;
         }
         
-        const response = await fetch(`http://localhost:3001/api/transcriptions?userId=${userId}`, {
+        const response = await fetch(`/api/transcriptions?userId=${userId}`, {
           headers
         });
         
@@ -53,7 +53,7 @@ export default function TranscriptionHistory() {
         console.log('Mikroservisten gelen veri:', data);
         
         // Mikroservis formatını component formatına dönüştür
-        const formattedData = data.map((item: any) => ({
+        const formattedData = data.map((item: { id: string; audioUrl: string; midiUrl: string; createdAt: string; shareId?: string }) => ({
           id: item.id,
           audio_url: item.audioUrl,
           midi_url: item.midiUrl,
@@ -86,7 +86,7 @@ export default function TranscriptionHistory() {
         headers['Authorization'] = `Bearer ${accessToken}`;
       }
 
-      const response = await fetch(`http://localhost:3001/api/transcriptions/${id}/share`, {
+      const response = await fetch(`/api/transcriptions/${id}/share`, {
         method: 'POST',
         headers,
       });
@@ -106,9 +106,10 @@ export default function TranscriptionHistory() {
       // Paylaşım linkini panoya kopyala
       await navigator.clipboard.writeText(data.shareUrl);
       alert('Paylaşım linki kopyalandı!');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Paylaşım hatası:', error);
-      alert('Paylaşım linki oluşturulurken bir hata oluştu: ' + error.message);
+      const errorMessage = error instanceof Error ? error.message : 'Bilinmeyen bir hata oluştu';
+      alert('Paylaşım linki oluşturulurken bir hata oluştu: ' + errorMessage);
     } finally {
       setShareLoading(null);
     }

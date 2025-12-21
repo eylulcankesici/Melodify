@@ -1,13 +1,7 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
-// Piano roll için temel parametreler
-const NOTE_HEIGHT = 8;
-const PIXELS_PER_TICK = 0.15;
-const PADDING = 20;
-const COLORS = ["#00c8ff", "#FFD700", "#FF69B4", "#7CFC00"];
-
-export default function SimplePianoRoll({ midiUrl }: { midiUrl: string }) {
+export default function SimplePianoRoll({ midiUrl: _midiUrl }: { midiUrl: string }) {
   // Burada kendi görselleştirme kodunu ekleyebilirsin veya şimdilik boş bırakabilirsin.
   return (
     <div className="w-full flex flex-col items-center mt-4">
