@@ -19,7 +19,7 @@ export default function DonationPrompt() {
 
   return (
     <div className={`${canPrompt ? "" : "DonationPromptClosed"} DonationPrompt`}>
-        <img src={Hi.src} alt="wave_hand" />
+        <img src={Hi} alt="wave_hand" />
         <h3>We've noticed that You've visited this page <span>{countVisited}</span> times!</h3>
         <h4>
             If you like using this app consider donating

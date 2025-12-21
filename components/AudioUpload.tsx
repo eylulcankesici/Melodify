@@ -64,11 +64,9 @@ export default function AudioUpload({ onUpload }: { onUpload: (fileUrl: string, 
 
       const blob = await res.blob();
       setMidiBlob(blob);
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error('Transkripsiyon hatası:', error);
-      const message =
-        error instanceof Error ? error.message : 'Transkripsiyon sırasında hata oluştu.';
-      setTranscribeError(message);
+      setTranscribeError(error.message || 'Transkripsiyon sırasında hata oluştu.');
     } finally {
       setTranscribing(false);
       // Bu satırı kaldırdık, çünkü kullanıcı yeni MIDI ile işlem yapmak isteyebilir.

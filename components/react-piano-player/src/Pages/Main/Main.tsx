@@ -80,8 +80,8 @@ export default function Main() {
                 <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} onConfClick={onConfClick} options={options} isConfOn={isConfiguring}/>
                 <div className='Main_data'>
                     <div className='Logos'>
-                        <img src={Logo.src} className='Logo' alt='Logo' />
-                        <img src={AVNT.src} className='Logo_comp' alt='Logo' />
+                        <img src={Logo} className='Logo' alt='Logo' />
+                        <img src={AVNT} className='Logo_comp' alt='Logo' />
                     </div>
                     <h1 className='Main_data_Text Title'>Web midi player/visualizer/recorder for piano</h1>
                     <h3 className='Main_data_Text Description'>

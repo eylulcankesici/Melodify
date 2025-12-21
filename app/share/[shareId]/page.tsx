@@ -49,7 +49,7 @@ export default function SharedTranscriptionPage({ params }: SharedTranscriptionP
     async function fetchSharedTranscription() {
       try {
         // Mikroservisten paylaşılan transkripsiyonu çek
-        const response = await fetch(`/api/share/${shareId}`);
+        const response = await fetch(`http://localhost:3001/api/share/${shareId}`);
         
         if (!response.ok) {
           const err = await response.json();

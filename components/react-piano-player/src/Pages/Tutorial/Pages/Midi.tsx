@@ -15,7 +15,7 @@ export default function Midi({on_change_id}:BasicProps):ReactElement {
             <h2 className="Pg-Sm-Header">What is Midi File ?</h2>
             <div className='Pg-Images flex-2'>
                 <div className='Pg-Flex-Img-Container'>
-                    <img src={midi_des.src} alt="Midi Desciption" className='Pg-Image' />
+                    <img src={midi_des} alt="Midi Desciption" className='Pg-Image' />
                 </div>
                 <div className='Pg-Flex-Text-Container'>
                     <p className="Pg-Paragraph">
@@ -49,7 +49,7 @@ export default function Midi({on_change_id}:BasicProps):ReactElement {
                     </p>
                     </div>
                     <div className='flex-5'>
-                        <img src={interface_mid.src} className='image_for-nerds' alt='inmterface' />
+                        <img src={interface_mid} className='image_for-nerds' alt='inmterface' />
                     </div>
                 </div>
             </div>

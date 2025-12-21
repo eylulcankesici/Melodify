@@ -17,7 +17,21 @@ export async function POST(req: NextRequest) {
 
     // Python'dan gelen yanıt başarısızsa, hatayı olduğu gibi yansıt
     if (!response.ok) {
-      const errorData = await response.json();
+      // Content-Type'ı kontrol et - HTML mi JSON mu?
+      const contentType = response.headers.get('content-type') || '';
+      let errorData;
+      
+      if (contentType.includes('application/json')) {
+        errorData = await response.json();
+      } else {
+        // HTML hata sayfası geldi, text olarak oku
+        const errorText = await response.text();
+        console.error('Backend HTML hatası (ilk 500 karakter):', errorText.substring(0, 500));
+        errorData = { 
+          error: `Backend hatası (${response.status}): ${response.statusText}. Python backend servisi çalışmıyor olabilir.` 
+        };
+      }
+      
       return NextResponse.json(
         { error: errorData.error || 'Backend tarafında bir hata oluştu' },
         { status: response.status }
@@ -39,6 +53,14 @@ export async function POST(req: NextRequest) {
 
   } catch (error: unknown) {
     console.error('API Route Hatası:', error);
+
+    // Eğer fetch hatası ise (backend erişilemiyor)
+    if (error instanceof TypeError && (error.message.includes('fetch') || error.message.includes('ECONNREFUSED'))) {
+      return NextResponse.json(
+        { error: 'Python backend servisine erişilemiyor (localhost:5000). Servisin çalıştığından emin olun.' },
+        { status: 503 }
+      );
+    }
 
     const message =
       error instanceof Error ? error.message : 'Transkripsiyon sırasında bir hata oluştu';

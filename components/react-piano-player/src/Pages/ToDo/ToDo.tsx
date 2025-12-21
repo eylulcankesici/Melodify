@@ -25,7 +25,7 @@ export default function ToDo() {
                 <h1 className='Support_h1'>Support / Donate</h1>
                 <div className='Support_Data'>
                     <div className="Supp_img">
-                        <img src={checkbox === 'checked' ? Cactus.src : sad_cactus.src} alt="Cactus gif" />
+                        <img src={checkbox === 'checked' ? Cactus : sad_cactus} alt="Cactus gif" />
                     </div>
                     <div className="Support_don">
                         <h3 className='data_don'>I understand what a <a href="https://en.wikipedia.org/wiki/Donation">Donation</a> is and I accept a fact that I'm not receiving any goods from this payment</h3> 

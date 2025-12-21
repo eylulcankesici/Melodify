@@ -126,7 +126,7 @@ export default class ConvertToPDF{
             return new Promise(resolve =>{
                 const img = new Image();
                 img.onload = () => {resolve(img)}
-                img.src = type === 'bass' ? Bass_png.src : Violin_png.src;
+                img.src = type === 'bass' ? Bass_png : Violin_png;
             })
         }
         const bass =  await AddImage('bass');
@@ -452,11 +452,11 @@ export default class ConvertToPDF{
         bass.onload = function(){
             load_image();
         }
-        bass.src = Bass_png.src;
+        bass.src = Bass_png;
         violin.onload = function(){
             load_image();
         }
-        violin.src = Violin_png.src;
+        violin.src = Violin_png;
     }
 
     private resetBarsData():void{

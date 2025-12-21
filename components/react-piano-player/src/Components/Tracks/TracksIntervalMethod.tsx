@@ -111,7 +111,6 @@ export default function TracksIntervalMethod({Data,Speed, BlackNumbers, KeysPosi
                 height: Event.Duration / 1000 / (intervalSpeed / Speed),
                 wasDetected: false,
                 duration:Event.Duration,
-                SoundDuration: Event.SoundDuration,
                 creationTime: 0
             }
             newblocks.push(newBlock);

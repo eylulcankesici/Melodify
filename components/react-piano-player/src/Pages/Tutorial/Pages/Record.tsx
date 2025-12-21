@@ -34,7 +34,7 @@ export default function Record() {
                     </p>
                 </div>
                 <div className='Pg-Container-Flex-60'>
-                    <img src={shet.src} alt="sheet music demo" className='Pg-Container-Flex-img' />
+                    <img src={shet} alt="sheet music demo" className='Pg-Container-Flex-img' />
                 </div>
             </div>
             <div className='Pg-For-Devs' style={{marginTop:'2%'}}>

@@ -107,7 +107,7 @@ export default function Record():ReactElement {
     const renderDevices = () =>{
         if(devices.length > 0)
             return devices.map((device,index) =>{
-                return <div className='device' key={index}><i className={`fa fa-circle dot ${recording?'blink':''}`} aria-hidden="true"></i><img src={Piano.src} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
+                return <div className='device' key={index}><i className={`fa fa-circle dot ${recording?'blink':''}`} aria-hidden="true"></i><img src={Piano} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
             })
         return <h1>No device Connected</h1>
     }

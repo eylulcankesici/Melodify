@@ -1,4 +1,4 @@
-import React, { ReactElement,useRef, useState, ReactNode } from 'react'
+import React, { ReactElement,useRef, useState } from 'react'
 
 import {checkExtension} from '../../../Utils/smallFunctions';
 
@@ -7,14 +7,14 @@ interface CardProps{
     name: string;
     type: string;
     title?:string;
-    children:ReactNode;
+    children:JSX.Element | string;
     value: string|boolean,
     textColor:string
 }
 
 export default function OptionCard({onChange,name,type,textColor,title,children,value}:CardProps):ReactElement {
 
-    const Myvalue = useRef<HTMLInputElement | null>(null);
+    const Myvalue = useRef<any>();
     const [image,setImage] = useState<any>();
 
     const handleChange = () =>{
@@ -41,7 +41,7 @@ export default function OptionCard({onChange,name,type,textColor,title,children,
           return new Promise(resolve =>{resolve('Error')})
         }
       }
-      if(Myvalue.current?.files && Myvalue.current.files[0] && (checkExtension(Myvalue.current.files[0],'.jpg') || checkExtension(Myvalue.current.files[0],'.png') || checkExtension(Myvalue.current.files[0],'.gif'))){
+      if(checkExtension(Myvalue.current?.files[0],'.jpg') || checkExtension(Myvalue.current?.files[0],'.png') || checkExtension(Myvalue.current?.files[0],'.gif')){
       convertDataToArray64().then(reading =>{
         const data = {
             target:{name:'Image', value:reading}

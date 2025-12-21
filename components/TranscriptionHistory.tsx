@@ -39,7 +39,7 @@ export default function TranscriptionHistory() {
           headers['Authorization'] = `Bearer ${accessToken}`;
         }
         
-        const response = await fetch(`/api/transcriptions?userId=${userId}`, {
+        const response = await fetch(`http://localhost:3001/api/transcriptions?userId=${userId}`, {
           headers
         });
         
@@ -49,27 +49,21 @@ export default function TranscriptionHistory() {
           throw new Error(`Transkripsiyonlar alınamadı: ${response.status}`);
         }
         
-        const data: Array<{
-          id: string | number;
-          audioUrl: string;
-          midiUrl: string;
-          createdAt: string;
-          shareId: string | null;
-        }> = await response.json();
+        const data = await response.json();
         console.log('Mikroservisten gelen veri:', data);
         
         // Mikroservis formatını component formatına dönüştür
-        const formattedData: Transcription[] = data.map((item) => ({
-          id: String(item.id),
+        const formattedData = data.map((item: any) => ({
+          id: item.id,
           audio_url: item.audioUrl,
           midi_url: item.midiUrl,
           created_at: item.createdAt,
-          share_id: item.shareId || undefined,
+          share_id: item.shareId || undefined
         }));
         
         console.log('Formatlanmış veri:', formattedData);
         setTranscriptions(formattedData);
-      } catch (error: unknown) {
+      } catch (error) {
         console.error('Transkripsiyon yükleme hatası:', error);
         setTranscriptions([]);
       }
@@ -92,7 +86,7 @@ export default function TranscriptionHistory() {
         headers['Authorization'] = `Bearer ${accessToken}`;
       }
 
-      const response = await fetch(`/api/transcriptions/${id}/share`, {
+      const response = await fetch(`http://localhost:3001/api/transcriptions/${id}/share`, {
         method: 'POST',
         headers,
       });
@@ -102,7 +96,7 @@ export default function TranscriptionHistory() {
         throw new Error(err.error || 'Paylaşım linki oluşturulamadı');
       }
 
-      const data: { shareId: string; shareUrl: string } = await response.json();
+      const data = await response.json();
 
       // State'i güncelle
       setTranscriptions(prev => 
@@ -112,11 +106,9 @@ export default function TranscriptionHistory() {
       // Paylaşım linkini panoya kopyala
       await navigator.clipboard.writeText(data.shareUrl);
       alert('Paylaşım linki kopyalandı!');
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error('Paylaşım hatası:', error);
-      const message =
-        error instanceof Error ? error.message : 'Paylaşım linki oluşturulurken bir hata oluştu.';
-      alert('Paylaşım linki oluşturulurken bir hata oluştu: ' + message);
+      alert('Paylaşım linki oluşturulurken bir hata oluştu: ' + error.message);
     } finally {
       setShareLoading(null);
     }

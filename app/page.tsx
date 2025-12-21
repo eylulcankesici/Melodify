@@ -108,17 +108,29 @@ export default function Home() {
     setTranscriptionResultUrl(null);
 
     try {
-      // 1. Flask servisine istek at - MIDI üret (Nginx proxy üzerinden)
+      // 1. Flask servisine istek at - MIDI üret (Next.js API route üzerinden)
       const transcribeResponse = await fetch('/api/transcribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ audio_url: transcriptionFileUrl }), // Python backend'in beklediği format
+        body: JSON.stringify({ audioUrl: transcriptionFileUrl }),
       });
 
       if (!transcribeResponse.ok) {
-        const err = await transcribeResponse.json();
+        // Content-Type kontrolü yap - JSON değilse text olarak oku
+        const contentType = transcribeResponse.headers.get('content-type') || '';
+        let err;
+        
+        if (contentType.includes('application/json')) {
+          err = await transcribeResponse.json();
+        } else {
+          // HTML veya başka bir format geldi
+          const errorText = await transcribeResponse.text();
+          console.error('Backend HTML hatası:', errorText.substring(0, 200));
+          err = { error: `Sunucu hatası (${transcribeResponse.status}): ${transcribeResponse.statusText}` };
+        }
+        
         throw new Error(err.error || 'Transkripsiyon sırasında bir hata oluştu.');
       }
 
@@ -143,7 +155,19 @@ export default function Home() {
       });
 
       if (!saveResponse.ok) {
-        const err = await saveResponse.json();
+        // Content-Type kontrolü yap - JSON değilse text olarak oku
+        const contentType = saveResponse.headers.get('content-type') || '';
+        let err;
+        
+        if (contentType.includes('application/json')) {
+          err = await saveResponse.json();
+        } else {
+          // HTML veya başka bir format geldi
+          const errorText = await saveResponse.text();
+          console.error('Microservice HTML hatası:', errorText.substring(0, 200));
+          err = { error: `Sunucu hatası (${saveResponse.status}): ${saveResponse.statusText}` };
+        }
+        
         throw new Error(err.error || 'Transkripsiyon kaydedilirken bir hata oluştu.');
       }
 
