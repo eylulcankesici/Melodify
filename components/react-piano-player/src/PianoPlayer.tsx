@@ -7,7 +7,7 @@ import { parseArrayBuffer } from "midi-json-parser";
 import { IMidiFile, noteEvent } from "./Utils/TypesForMidi"; 
 
 interface PianoPlayerProps {
-  midiUrl: string;
+  midiUrl?: string;
 }
 
 const PianoPlayer: React.FC<PianoPlayerProps> = ({ midiUrl }) => {
