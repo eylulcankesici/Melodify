@@ -61,7 +61,7 @@ app.post('/api/transcriptions', upload.single('midiBlob'), async (req, res) => {
     let clientToUse = supabase;
     if (accessToken) {
       console.log('Authenticated client oluşturuluyor...');
-      clientToUse = createClient(supabaseUrl, supabaseKey, {
+      clientToUse = createClient(supabaseUrl, supabaseAnonKey, {
         global: {
           headers: {
             Authorization: `Bearer ${accessToken}`
