@@ -20,7 +20,7 @@ export default function Record() {
                 </div>
                 <div className='Pg-Container-Flex-60'>
                     <video autoPlay muted loop className='Pg-Container-Video-Demo'>
-                        <source src={Rec} type="video/mp4" />
+                        <source src={typeof Rec === 'string' ? Rec : Rec.src} type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -34,7 +34,7 @@ export default function Record() {
                     </p>
                 </div>
                 <div className='Pg-Container-Flex-60'>
-                    <img src={shet} alt="sheet music demo" className='Pg-Container-Flex-img' />
+                    <img src={shet.src} alt="sheet music demo" className='Pg-Container-Flex-img' />
                 </div>
             </div>
             <div className='Pg-For-Devs' style={{marginTop:'2%'}}>

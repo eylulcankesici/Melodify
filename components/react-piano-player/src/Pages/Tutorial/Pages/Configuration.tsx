@@ -110,13 +110,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={ColorCard} alt="card_one" className='Img-Conf' />
+                    <img src={ColorCard.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Color1} alt="card_one" className='Img-Conf' />
+                    <img src={Color1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Color2} alt="card_one" className='Img-Conf' />
+                    <img src={Color2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <div className='Pg-Config-4-Description Pg-Bg-Blocks'>
@@ -128,13 +128,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={ThinColorCard} alt="card_one" className='Img-Conf' />
+                    <img src={ThinColorCard.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={ThinColor1} alt="card_one" className='Img-Conf' />
+                    <img src={ThinColor1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={ThinColor2} alt="card_one" className='Img-Conf' />
+                    <img src={ThinColor2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <div className='Pg-Config-4-Description Pg-Bg-Blocks'>
@@ -146,13 +146,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={BlockShadow} alt="card_one" className='Img-Conf' />
+                    <img src={BlockShadow.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={BlockShadow1} alt="card_one" className='Img-Conf' />
+                    <img src={BlockShadow1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={BlockShadow2} alt="card_one" className='Img-Conf' />
+                    <img src={BlockShadow2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <div className='Pg-Config-4-Description Pg-Bg-Blocks'>
@@ -163,13 +163,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={KeyPressColor} alt="card_one" className='Img-Conf' />
+                    <img src={KeyPressColor.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={KeyPressColor1} alt="card_one" className='Img-Conf' />
+                    <img src={KeyPressColor1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={KeyPressColor2} alt="card_one" className='Img-Conf' />
+                    <img src={KeyPressColor2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <div className='Pg-Config-4-Description Pg-Bg-Blocks'>
@@ -180,13 +180,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Gradient} alt="card_one" className='Img-Conf' />
+                    <img src={Gradient.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Gradient1} alt="card_one" className='Img-Conf' />
+                    <img src={Gradient1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Gradient2} alt="card_one" className='Img-Conf' />
+                    <img src={Gradient2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <div className='Pg-Config-4-Description Pg-Bg-Blocks'>
@@ -197,13 +197,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={RandomBlocksColor} alt="card_one" className='Img-Conf' />
+                    <img src={RandomBlocksColor.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={RandomBlocksColor1} alt="card_one" className='Img-Conf' />
+                    <img src={RandomBlocksColor1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={RandomBlocksColor2} alt="card_one" className='Img-Conf' />
+                    <img src={RandomBlocksColor2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <div className='Pg-Config-4-Description Pg-Bg-Blocks'>
@@ -214,13 +214,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Shadow} alt="card_one" className='Img-Conf' />
+                    <img src={Shadow.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Shadow1} alt="card_one" className='Img-Conf' />
+                    <img src={Shadow1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Shadow2} alt="card_one" className='Img-Conf' />
+                    <img src={Shadow2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <div className='Pg-Config-4-Description Pg-Bg-Blocks'>
@@ -231,13 +231,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={radius} alt="card_one" className='Img-Conf' />
+                    <img src={radius.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={radius1} alt="card_one" className='Img-Conf' />
+                    <img src={radius1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={radius2} alt="card_one" className='Img-Conf' />
+                    <img src={radius2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
             <h3 className='Pg-Sm-Header Pg-Text Pg-Effects-Col'>Effects Description</h3>
@@ -249,11 +249,11 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={fountain} alt="card_one" className='Img-Conf' />
+                    <img src={fountain.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-Vid-40'>
                     <video autoPlay muted loop className='Pg-Config-Vid'>
-                        <source src={fountainVid} type="video/mp4" />
+                        <source src={typeof fountainVid === 'string' ? fountainVid : fountainVid.src} type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -265,11 +265,11 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={Sparks_img} alt="card_one" className='Img-Conf' />
+                    <img src={Sparks_img.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-Vid-40'>
                     <video autoPlay muted loop className='Pg-Config-Vid'>
-                        <source src={DancingLines} type="video/mp4" />
+                        <source src={typeof DancingLines === 'string' ? DancingLines : DancingLines.src} type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -281,11 +281,11 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={DancingLines_img} alt="card_one" className='Img-Conf' />
+                    <img src={DancingLines_img.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-Vid-40'>
                     <video autoPlay muted loop className='Pg-Config-Vid'>
-                        <source src={Sparks} type="video/mp4" />
+                        <source src={typeof Sparks === 'string' ? Sparks : Sparks.src} type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -297,11 +297,11 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={balls_img} alt="card_one" className='Img-Conf' />
+                    <img src={balls_img.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-Vid-40'>
                     <video autoPlay muted loop className='Pg-Config-Vid'>
-                        <source src={balls} type="video/mp4" />
+                        <source src={typeof balls === 'string' ? balls : balls.src} type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -313,11 +313,11 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={fireworks_img} alt="card_one" className='Img-Conf' />
+                    <img src={fireworks_img.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-Vid-40'>
                     <video autoPlay muted loop className='Pg-Config-Vid'>
-                        <source src={fireworks} type="video/mp4" />
+                        <source src={typeof fireworks === 'string' ? fireworks : fireworks.src} type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -331,13 +331,13 @@ export default function Configuration() {
                     </p>
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={watermark} alt="card_one" className='Img-Conf' />
+                    <img src={watermark.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={watermark1} alt="card_one" className='Img-Conf' />
+                    <img src={watermark1.src} alt="card_one" className='Img-Conf' />
                 </div>
                 <div className='Pg-Config-20'>
-                    <img src={watermark2} alt="card_one" className='Img-Conf' />
+                    <img src={watermark2.src} alt="card_one" className='Img-Conf' />
                 </div>
             </div>
         </div>

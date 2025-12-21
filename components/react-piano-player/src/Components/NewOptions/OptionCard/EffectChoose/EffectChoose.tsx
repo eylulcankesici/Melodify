@@ -45,7 +45,7 @@ export default function EffectChoose({type,name,onChange,value,children,title,te
             <h3 className='Click_To'>Click to choose</h3>
             {type !== "None" &&
                 <video width="300" height="170" autoPlay muted loop className={`video ${!hovered ? 'hidd' : ''}`}>
-                    <source src={src} type="video/mp4" />
+                    <source src={typeof src === 'string' ? src : (src?.src || src)} type="video/mp4" />
                 </video>
             }
         </div>

@@ -16,7 +16,7 @@ export default function Basic({on_change_id}:BasicProps):ReactElement {
             <h3 className='Pg-Sm-Header Pg-Text'>What is Piano Blocks App ?</h3>
             <div className='Pg-Video-Container'>
                 <video autoPlay muted loop className='Pg-Video-Demo'>
-                    <source src={Demo} type="video/mp4" />
+                    <source src={typeof Demo === 'string' ? Demo : Demo.src} type="video/mp4" />
                 </video>
             </div>
             <p className='Pg-Paragraph Pg-Text'>
@@ -48,7 +48,7 @@ export default function Basic({on_change_id}:BasicProps):ReactElement {
                 <div className='data-l'>
                     <div className='data-video-cnt shadow-ala' style={{width:'90%',height:'100%'}}>
                         <video autoPlay muted loop className='data-video' >
-                            <source src={importing_file} type="video/mp4" />
+                            <source src={typeof importing_file === 'string' ? importing_file : importing_file.src} type="video/mp4" />
                         </video>
                     </div>
                 </div>
