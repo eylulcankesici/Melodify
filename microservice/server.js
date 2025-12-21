@@ -57,20 +57,24 @@ app.post('/api/transcriptions', upload.single('midiBlob'), async (req, res) => {
       return res.status(400).json({ error: 'midiBlob gerekli' });
     }
 
+    // TEST İÇİN: adminSupabase kullan (RLS'i bypass eder)
+    // İŞ BİTİNCE ESKİ HALİNE ÇEVİR:
     // Kullanıcı token'ı varsa authenticated client oluştur, yoksa anon kullan
-    let clientToUse = supabase;
-    if (accessToken) {
-      console.log('Authenticated client oluşturuluyor...');
-      clientToUse = createClient(supabaseUrl, supabaseAnonKey, {
-        global: {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }
-      });
-    } else {
-      console.log('Anon client kullanılıyor (token yok)');
-    }
+    // let clientToUse = supabase;
+    // if (accessToken) {
+    //   console.log('Authenticated client oluşturuluyor...');
+    //   clientToUse = createClient(supabaseUrl, supabaseAnonKey, {
+    //     global: {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`
+    //       }
+    //     }
+    //   });
+    // } else {
+    //   console.log('Anon client kullanılıyor (token yok)');
+    // }
+    const clientToUse = adminSupabase;
+    console.log('TEST MODE: Admin client kullanılıyor (RLS bypass)');
 
     // MIDI dosyasını Supabase Storage'a yükle
     const midiFileName = `${Date.now()}_${uuidv4()}.mid`;
@@ -147,17 +151,20 @@ app.get('/api/transcriptions', async (req, res) => {
       return res.status(400).json({ error: 'userId query parametresi gerekli' });
     }
 
+    // TEST İÇİN: adminSupabase kullan (RLS'i bypass eder)
+    // İŞ BİTİNCE ESKİ HALİNE ÇEVİR:
     // Kullanıcı token'ı varsa authenticated client oluştur
-    let clientToUse = supabase;
-    if (accessToken) {
-      clientToUse = createClient(supabaseUrl, supabaseAnonKey, {
-        global: {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }
-      });
-    }
+    // let clientToUse = supabase;
+    // if (accessToken) {
+    //   clientToUse = createClient(supabaseUrl, supabaseAnonKey, {
+    //     global: {
+    //       headers: {
+    //         Authorization: `Bearer ${accessToken}`
+    //       }
+    //     }
+    //   });
+    // }
+    // const { data, error } = await clientToUse
 
     const { data, error } = await adminSupabase
       .from('transcriptions')
