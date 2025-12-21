@@ -18,37 +18,36 @@ export default function OptionCard({onChange,name,type,textColor,title,children,
     const [image,setImage] = useState<any>();
 
     const handleChange = () =>{
+        const file = Myvalue.current?.files?.[0];
         
-        function convertDataToArray64():Promise<ArrayBuffer | string> {
-
-        if(Myvalue.current){
-        const file = Myvalue.current.files![0];
-        
-        return new Promise<ArrayBuffer>((resolve, reject) => {
-            const reader = new FileReader();
-    
-            reader.onload = (event:any) => {
-                resolve(event.target.result);
-            };
-    
-            reader.onerror = (err) => {
-                reject(err);
-            };
-            // reader.readAsArrayBuffer(file);
-            reader.readAsDataURL(file)
-        });
-        }else{
-          return new Promise(resolve =>{resolve('Error')})
+        if(!file){
+            return;
         }
-      }
-      if(checkExtension(Myvalue.current?.files[0],'.jpg') || checkExtension(Myvalue.current?.files[0],'.png') || checkExtension(Myvalue.current?.files[0],'.gif')){
-      convertDataToArray64().then(reading =>{
-        const data = {
-            target:{name:'Image', value:reading}
-        };
-        onChange(data);
-        setImage(reading);
-      })
+        
+        function convertDataToArray64(selectedFile: File):Promise<ArrayBuffer | string> {
+            return new Promise<ArrayBuffer>((resolve, reject) => {
+                const reader = new FileReader();
+        
+                reader.onload = (event:any) => {
+                    resolve(event.target.result);
+                };
+        
+                reader.onerror = (err) => {
+                    reject(err);
+                };
+                // reader.readAsArrayBuffer(selectedFile);
+                reader.readAsDataURL(selectedFile)
+            });
+        }
+        
+        if(checkExtension(file,'.jpg') || checkExtension(file,'.png') || checkExtension(file,'.gif')){
+            convertDataToArray64(file).then(reading =>{
+                const data = {
+                    target:{name:'Image', value:reading}
+                };
+                onChange(data);
+                setImage(reading);
+            })
         }
         else{
             alert('Error, Image Format Not supported');
