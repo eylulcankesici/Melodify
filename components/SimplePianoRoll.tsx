@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function SimplePianoRoll({ midiUrl: _midiUrl }: { midiUrl: string }) {
   // Burada kendi görselleştirme kodunu ekleyebilirsin veya şimdilik boş bırakabilirsin.
   return (
