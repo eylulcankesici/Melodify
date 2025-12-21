@@ -6,7 +6,7 @@ import DrawInCanvas from './DrawInCanvas';
 import { Options } from '../../Utils/TypesForOptions';
 
 interface InputFileProps{
-    FileRef: React.RefObject<HTMLInputElement>,
+    FileRef: React.RefObject<HTMLInputElement | null>,
     onFileUpload: Function,
     options:Options,
     onConfClick:Function,
