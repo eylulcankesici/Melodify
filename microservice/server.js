@@ -159,7 +159,7 @@ app.get('/api/transcriptions', async (req, res) => {
       });
     }
 
-    const { data, error } = await clientToUse
+    const { data, error } = await adminSupabase
       .from('transcriptions')
       .select('*')
       .eq('user_id', userId)
