@@ -199,7 +199,7 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
         handleOptionsChange(fakeEvent);
     }
 
-    const renderCards = ():Array<React.ReactElement> | Array<void> => {
+    const renderCards = ():Array<React.ReactElement> => {
         return colors.map((color,index) =>{
             return <OptionCard onChange={handleColorChange} name={`Color-${index + 1}`} type='color' title={`Gradient Color #${index}`} value={color as string} key={index}>
                 Color building gradeint.
