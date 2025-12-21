@@ -4,7 +4,7 @@ import './InsideNavigator.style.scss';
 interface InsideNavigatorProps{
     elements:Array<{
         name:string,
-        component:ReactElement | HTMLElement | string
+        component:React.ReactNode
     }>
     setId:Function
     component_id:number
