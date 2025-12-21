@@ -12,12 +12,12 @@ interface Ball{
 
 export default class DrawInCanvas{
     private ctx:CanvasRenderingContext2D
-    private Canvas:RefObject<HTMLCanvasElement>
+    private Canvas:RefObject<HTMLCanvasElement | null>
     private balls:Array<Ball>
     private options:Options
     private gradient:CanvasGradient
 
-    constructor(CanvasRef:RefObject<HTMLCanvasElement>,options:Options,defaultValue?:Array<Ball>){
+    constructor(CanvasRef:RefObject<HTMLCanvasElement | null>,options:Options,defaultValue?:Array<Ball>){
         this.ctx = CanvasRef.current?.getContext('2d')!;
         this.Canvas = CanvasRef;
         this.options = options
