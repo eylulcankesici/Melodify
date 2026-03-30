@@ -59,5 +59,27 @@ Desktop.ini
 # Documentation
 Dökümantasyon/
 
-# models
+# Yapay Zeka Modelleri 
 models/
+
+
+# Sanal Ortamlar (Virtual Environments)
+bVenv/
+dVenv/
+venv/
+.venv/
+env/
+
+# Python Önbellek Dosyaları
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Backend İşlem Sırasındaki Geçici Ses Dosyaları
+backend/temp_audio/
+temp_audio/
+*.mp3
+*.wav
+
+# Mac/OS Kalıntıları
+.DS_Store
