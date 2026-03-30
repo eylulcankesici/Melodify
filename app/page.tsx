@@ -54,6 +54,34 @@ export default function Home() {
     }
   };
 
+  // Python Demucs Sunucusuna İsteği Gönderen Fonksiyon
+  const handleTranscriptionStart = async () => {
+    if (!transcriptionFileUrl || !user) return;
+    
+    // Güvenlik: Yüklü dosya ismini urlden çıkar veya default isimlendir
+    const fileName = transcriptionFileUrl.split('/').pop() || 'dosya.mp3';
+    
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/transcribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          original_audio_url: transcriptionFileUrl,
+          filename: fileName
+        }),
+      });
+      
+      const data = await res.json();
+      alert("Demucs'a Bağlanıldı! " + data.message);
+    } catch (err) {
+      console.error(err);
+      alert("Eyvah! Python sunucusuna (Backend) ulaşılamıyor. Terminalde 'uvicorn main:app' çalışıyor mu?");
+    }
+  };
+
   useEffect(() => {
     // Mevcut oturumu al
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -163,7 +191,7 @@ export default function Home() {
                             <button
                               onClick={(e) => { 
                                 e.stopPropagation(); 
-                                alert('Python backend bağlantısı bir sonraki adımda yapılacak!'); 
+                                handleTranscriptionStart(); 
                               }}
                               className="bg-[#268bd2] text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-[#1f72b0] transform hover:scale-105 transition-all duration-200 ease-in-out text-lg"
                             >
