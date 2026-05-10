@@ -84,7 +84,7 @@ export default function AuthForm() {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               className="px-4 py-2 border border-[#93a1a1]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b58900] bg-white text-[#586e75]"
-              placeholder="Adınızı girin"
+            // placeholder="Adınızı girin"
             />
           </div>
         )}
