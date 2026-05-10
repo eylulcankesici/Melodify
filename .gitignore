@@ -83,3 +83,12 @@ temp_audio/
 
 # Mac/OS files
 .DS_Store
+
+# Mirilti Ciktilari
+miriltiCikti/
+
+# Sarkilar
+Sarkilar/
+
+# Supabase Key
+mobile/src/lib/supabase.ts
