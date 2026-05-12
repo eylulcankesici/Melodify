@@ -127,6 +127,12 @@ export default function Home() {
                 </Link>
                 <div className="flex items-center gap-4">
                   <span className="text-[#586e75] font-semibold text-lg">{user.user_metadata?.full_name || user.email}</span>
+                  <Link
+                    href="/play"
+                    className="bg-[#b58900] text-white px-6 py-2 rounded-full hover:bg-[#b58900]/80 transition shadow-sm font-semibold flex items-center gap-2"
+                  >
+                    🎹 MIDI Player
+                  </Link>
                   <button
                     onClick={async () => { await supabase.auth.signOut(); }}
                     className="bg-[#fdf6e3] text-[#586e75] px-6 py-2 rounded-full border border-[#93a1a1]/50 hover:bg-[#dcd5c4] transition shadow-sm"
