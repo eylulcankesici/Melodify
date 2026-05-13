@@ -8,9 +8,10 @@ import { IMidiFile, noteEvent } from "./Utils/TypesForMidi";
 
 interface PianoPlayerProps {
   midiUrl?: string;
+  fileName?: string;
 }
 
-const PianoPlayer: React.FC<PianoPlayerProps> = ({ midiUrl }) => {
+const PianoPlayer: React.FC<PianoPlayerProps> = ({ midiUrl, fileName }) => {
   const [midiFile, setMidiFile] = useState<IMidiFile | null>(null);
   const [noteEvents, setNoteEvents] = useState<noteEvent[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,7 +64,7 @@ const PianoPlayer: React.FC<PianoPlayerProps> = ({ midiUrl }) => {
   };
 
   if (isPlaying && midiFile && noteEvents) {
-    return <Play midiFile={midiFile} noteEvents={noteEvents} />;
+    return <Play midiFile={midiFile} noteEvents={noteEvents} fileName={fileName} />;
   }
 
   return (

@@ -11,23 +11,47 @@ import '../../App.css';
 interface PlayProps {
     midiFile: IMidiFile;
     noteEvents: noteEvent[];
+    fileName?: string;
 }
 
-export default function Play({ midiFile, noteEvents }: PlayProps) {
+export default function Play({ midiFile, noteEvents, fileName }: PlayProps) {
 
     const [options, setOptions] = useState<OptionsType>(DefaultOptions);
     const [activeNotes, setActiveNotes] = useState<noteEvent[]>([]);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [instrument, setInstrument] = useState<string>('acoustic_grand_piano');
 
-    // soundManager'ı yalnızca bir kez, bileşen yüklendiğinde oluştur.
-    // Bu kod, PianoPlayer'daki "Oynat" butonuna tıklandıktan sonra çalıştığı için
-    // tarayıcı sesi başlatma iznini almış olur.
-    const sound = useMemo(() => {
-        if (typeof window !== 'undefined') {
-            return new soundManager();
+    // URL'deki parametreyi veya dosya ismini dinleyerek enstrümanı otomatik belirle
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const instrParam = params.get('instrument');
+        
+        if (instrParam) {
+            setInstrument(instrParam);
+        } else if (fileName) {
+            const nameLower = fileName.toLowerCase();
+            if (nameLower.includes('drum') || nameLower.includes('bateri') || nameLower.includes('adtof')) {
+                setInstrument('synth_drum');
+            } else {
+                setInstrument('acoustic_grand_piano');
+            }
         }
-        return undefined;
-    }, []);
+    }, [fileName]);
+
+    const [sound, setSound] = useState<soundManager | undefined>(undefined);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        
+        console.log(`Enstrüman değiştiriliyor: ${instrument}`);
+        const manager = new soundManager(instrument);
+        setSound(manager);
+
+        return () => {
+            console.log(`Önceki enstrüman temizleniyor: ${instrument}`);
+            manager.destroy();
+        };
+    }, [instrument]);
 
     // MidiPlayer'dan gelen yeni nota olaylarını işleyen callback
     const handleMidiEvent = useCallback((newEvents: noteEvent[]) => {
@@ -70,7 +94,8 @@ export default function Play({ midiFile, noteEvents }: PlayProps) {
 
 
     return (
-        <div className='Main_container' style={{overflow:'hidden', width: '100%', height: '100%'}}>
+        <div className='Main_container' style={{overflow:'hidden', width: '100%', height: '100%', position: 'relative'}}>
+
             {Player && (
                 <>
                     <DrawPiano 
