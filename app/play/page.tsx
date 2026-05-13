@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
@@ -25,7 +25,29 @@ const PianoPlayer = dynamic(
 export default function PlayPage() {
   const [midiUrl, setMidiUrl] = useState<string | null>(null);
   const [midiFileName, setMidiFileName] = useState<string>('');
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [hideDownloads, setHideDownloads] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // URL Query parametresiyle gelen MIDI dosyalarını otomatik yükleme desteği
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlParam = params.get('url');
+    const nameParam = params.get('name') || 'AI Transkripsiyon Çıktısı';
+    const pdfParam = params.get('pdfUrl');
+    const hideDownloadsParam = params.get('hideDownloads');
+    
+    if (urlParam) {
+      setMidiUrl(urlParam);
+      setMidiFileName(nameParam);
+    }
+    if (pdfParam) {
+      setPdfUrl(pdfParam);
+    }
+    if (hideDownloadsParam === 'true') {
+      setHideDownloads(true);
+    }
+  }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -64,37 +86,59 @@ export default function PlayPage() {
         <span className="text-[50rem] text-[#93a1a1] -rotate-12">𝄞</span>
       </div>
 
-      <header className="w-full bg-[#fdf6e3]/80 backdrop-blur-sm border-b border-[#93a1a1]/30 sticky top-0 z-50">
-        <div className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center py-4">
-          <Link href="/" className="cursor-pointer text-md font-bold text-[#586e75] hover:text-[#b58900] transition flex items-center gap-1">
-            ◀ Ana Sayfa
-          </Link>
-          <div className="text-center">
-            <h1 className="text-2xl font-black text-[#586e75] tracking-tight">Melodify Piano Visualizer</h1>
-            {midiFileName && (
-              <p className="text-sm text-[#b58900] font-semibold mt-0.5">Oynatılan: {midiFileName}</p>
-            )}
+      {!hideDownloads && (
+        <header className="w-full bg-[#fdf6e3]/80 backdrop-blur-sm border-b border-[#93a1a1]/30 sticky top-0 z-50">
+          <div className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center py-4">
+            <Link href="/" className="cursor-pointer text-md font-bold text-[#586e75] hover:text-[#b58900] transition flex items-center gap-1">
+              ◀ Ana Sayfa
+            </Link>
+            <div className="text-center">
+              <h1 className="text-2xl font-black text-[#586e75] tracking-tight">Melodify Piano Visualizer</h1>
+              {midiFileName && (
+                <p className="text-sm text-[#b58900] font-semibold mt-0.5">Oynatılan: {midiFileName}</p>
+              )}
+            </div>
+            <div className="flex items-center gap-2.5">
+              {!hideDownloads && midiUrl && midiUrl.startsWith('http') && (
+                <a
+                  href={`${midiUrl}${midiUrl.includes('?') ? '&' : '?'}download=${midiFileName || 'midi_file.mid'}`}
+                  className="bg-[#6b828a] hover:bg-[#5a6f76] text-[#fdf6e3] px-4 py-1.5 rounded-full transition shadow-sm font-bold text-xs flex items-center gap-1.5"
+                >
+                  <span>📥</span>
+                  <span>MIDI İndir</span>
+                </a>
+              )}
+              {!hideDownloads && pdfUrl && (
+                <a
+                  href={`${pdfUrl}?download=${midiFileName.includes('drums') ? 'drums_sheet.pdf' : 'piano_sheet.pdf'}`}
+                  className="bg-[#c2847a] hover:bg-[#b07268] text-[#fdf6e3] px-4 py-1.5 rounded-full transition shadow-sm font-bold text-xs flex items-center gap-1.5"
+                >
+                  <span>🎼</span>
+                  <span>Nota Kağıdı İndir (PDF)</span>
+                </a>
+              )}
+              {!hideDownloads && midiUrl ? (
+                <button
+                  onClick={resetPlayer}
+                  className="bg-[#fdf6e3] text-[#586e75] px-4 py-1.5 rounded-full border border-[#93a1a1]/50 hover:bg-[#dcd5c4] transition shadow-sm font-semibold text-xs"
+                >
+                  Yeni Dosya Seç
+                </button>
+              ) : !hideDownloads ? (
+                <div className="w-28"></div>
+              ) : null}
+            </div>
           </div>
-          <div>
-            {midiUrl ? (
-              <button
-                onClick={resetPlayer}
-                className="bg-[#fdf6e3] text-[#586e75] px-5 py-2 rounded-full border border-[#93a1a1]/50 hover:bg-[#dcd5c4] transition shadow-sm font-semibold text-sm"
-              >
-                Yeni Dosya Seç
-              </button>
-            ) : (
-              <div className="w-28"></div>
-            )}
-          </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       <main className="w-full flex-grow flex flex-col items-center justify-center">
         {midiUrl ? (
-          /* MIDI Oynatıcı - Tam Ekran Genişliğinde (Edge-to-Edge) ve h-[calc(100vh-80px)] */
-          <div className="relative w-full h-[calc(100vh-80px)] overflow-hidden border-b-2 border-[#dcd5c4] bg-[#002b36]">
-            <PianoPlayer midiUrl={midiUrl} />
+          /* MIDI Oynatıcı - Tam Ekran Genişliğinde ve hideDownloads varsa h-screen, yoksa h-[calc(100vh-80px)] */
+          <div className={`relative w-full overflow-hidden border-b-2 border-[#dcd5c4] bg-[#002b36] ${
+            hideDownloads ? 'h-screen' : 'h-[calc(100vh-80px)]'
+          }`}>
+            <PianoPlayer midiUrl={midiUrl} fileName={midiFileName} />
           </div>
         ) : (
           /* Dosya Seçim Ekranı */

@@ -75,3 +75,82 @@ body {
   border-radius: 1.35rem;
   z-index: 0;
 }
+
+/* --- KUTU HOVER OLDUĞUNDA ETRAFTAN NOTA FIŞKIRMA EFEKTİ --- */
+
+@keyframes note-burst-1 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(calc(-50% - 180px), calc(-50% - 180px)) scale(1.6) rotate(-45deg); opacity: 0; }
+}
+@keyframes note-burst-2 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(calc(-50% + 180px), calc(-50% - 180px)) scale(1.4) rotate(45deg); opacity: 0; }
+}
+@keyframes note-burst-3 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(calc(-50% - 210px), calc(-50% + 110px)) scale(1.5) rotate(-15deg); opacity: 0; }
+}
+@keyframes note-burst-4 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(calc(-50% + 210px), calc(-50% + 110px)) scale(1.7) rotate(60deg); opacity: 0; }
+}
+@keyframes note-burst-5 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(-50%, calc(-50% - 220px)) scale(1.5) rotate(-20deg); opacity: 0; }
+}
+@keyframes note-burst-6 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(-50%, calc(-50% + 220px)) scale(1.4) rotate(25deg); opacity: 0; }
+}
+@keyframes note-burst-7 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(calc(-50% - 240px), calc(-50% - 20px)) scale(1.6) rotate(-60deg); opacity: 0; }
+}
+@keyframes note-burst-8 {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(calc(-50% + 240px), calc(-50% - 20px)) scale(1.5) rotate(55deg); opacity: 0; }
+}
+
+/* Kartın kendisi hover olduğunda tetiklenecek sınıflar */
+.burst-card-container {
+  position: relative;
+}
+
+.burst-note {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  font-size: 2.2rem;
+  font-weight: 900;
+  user-select: none;
+  z-index: 10; /* Kartın arkasından/önünden fışkırabilir. Kart bg-[#fdf6e3]/90 olduğundan z-10 olarak kartın üstünde gözükmesi daha eğlencelidir */
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.burst-card-container:hover .bn-1 { animation: note-burst-1 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.burst-card-container:hover .bn-2 { animation: note-burst-2 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.2s; }
+.burst-card-container:hover .bn-3 { animation: note-burst-3 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.1s; }
+.burst-card-container:hover .bn-4 { animation: note-burst-4 1.9s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.3s; }
+.burst-card-container:hover .bn-5 { animation: note-burst-5 1.7s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.15s; }
+.burst-card-container:hover .bn-6 { animation: note-burst-6 2.0s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.35s; }
+.burst-card-container:hover .bn-7 { animation: note-burst-7 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.05s; }
+.burst-card-container:hover .bn-8 { animation: note-burst-8 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.25s; }
